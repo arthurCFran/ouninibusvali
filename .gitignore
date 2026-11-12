@@ -67,3 +67,13 @@ uploads/
 
 # Configurações locais do Android
 local.properties
+
+.venv/
+venv/
+__pycache__/
+*.pyc
+.env
+.env.*
+!.env.example
+node_modules/
+.expo/
