@@ -1,3 +1,6 @@
+# matricula_academica: identificação fornecida pela faculdade.
+# matricula_funcional: identificação fornecida pela prefeitura.
+
 from datetime import datetime, timezone
 
 from sqlalchemy import (
@@ -43,10 +46,18 @@ class Usuario(Base):
         unique=True,
     )
 
-    matricula: Mapped[str] = mapped_column(
+    matricula_academica: Mapped[str | None] = mapped_column(
         String(30),
         unique=True,
+        nullable=True,
     )
+
+    matricula_funcional: Mapped[str | None] = mapped_column(
+        String(30),
+        unique=True,
+        nullable=True,
+    )
+
 
     senha_hash: Mapped[str] = mapped_column(String(255))
 

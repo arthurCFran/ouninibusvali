@@ -1,0 +1,54 @@
+warning: in the working copy of 'backend/database.py', LF will be replaced by CRLF the next time Git touches it
+[1mdiff --git a/backend/database.py b/backend/database.py[m
+[1mindex c6df4c1..bf29d6d 100644[m
+[1m--- a/backend/database.py[m
+[1m+++ b/backend/database.py[m
+[36m@@ -1,15 +1,33 @@[m
+[32m+[m
+[32m+[m[32m# DATABASE_URL: configura a conexão com o PostgreSQL online.[m
+[32m+[m[32m# DB_PASSWORD: senha utilizada no PostgreSQL local.[m
+[32m+[m[32m# engine: gerencia as conexões com o banco.[m
+[32m+[m[32m# testar_conexao(): verifica se o banco está acessível.[m
+[32m+[m
+ import os[m
+ [m
+ from sqlalchemy import URL, create_engine, text[m
+ [m
+[31m-url = URL.create([m
+[31m-    drivername="postgresql+psycopg",[m
+[31m-    username="postgres",[m
+[31m-    password=os.environ["DB_PASSWORD"],[m
+[31m-    host="127.0.0.1",[m
+[31m-    port=5432,[m
+[31m-    database="ouninibusvali",[m
+[31m-)[m
+[32m+[m[32mDATABASE_URL = os.getenv("DATABASE_URL")[m
+[32m+[m
+[32m+[m[32mif DATABASE_URL:[m
+[32m+[m[32m    url = DATABASE_URL[m
+[32m+[m
+[32m+[m[32m    if url.startswith("postgresql://"):[m
+[32m+[m[32m        url = url.replace([m
+[32m+[m[32m            "postgresql://",[m
+[32m+[m[32m            "postgresql+psycopg://",[m
+[32m+[m[32m            1[m
+[32m+[m[32m        )[m
+[32m+[m[32melse:[m
+[32m+[m[32m    url = URL.create([m
+[32m+[m[32m        drivername="postgresql+psycopg",[m
+[32m+[m[32m        username="postgres",[m
+[32m+[m[32m        password=os.environ["DB_PASSWORD"],[m
+[32m+[m[32m        host="127.0.0.1",[m
+[32m+[m[32m        port=5432,[m
+[32m+[m[32m        database="ouninibusvali",[m
+[32m+[m[32m    )[m
+ [m
+ engine = create_engine([m
+     url,[m
+[36m@@ -20,4 +38,4 @@[m [mengine = create_engine([m
+ [m
+ def testar_conexao():[m
+     with engine.connect() as conexao:[m
+[31m-        conexao.execute(text("SELECT 1"))[m
+\ No newline at end of file[m
+[32m+[m[32m        conexao.execute(text("SELECT 1"))[m

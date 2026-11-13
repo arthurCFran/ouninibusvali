@@ -4,6 +4,7 @@ import bcrypt
 from sqlalchemy import select
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
+from schemas import CadastroFuncionario
 
 from database import engine
 from models import Usuario
@@ -13,13 +14,15 @@ from schemas import CadastroAluno
 def criar_agente():
     print("Criação do agente da Prefeitura")
 
-    dados = CadastroAluno(
+    
+    dados = CadastroFuncionario(
         nome=input("Nome: "),
         email=input("E-mail: "),
         cpf=input("CPF com 11 dígitos, sem pontuação: "),
-        matricula=input("Matrícula do agente: "),
+        matricula_funcional=input("Matrícula funcional: "),
         senha=getpass("Senha com pelo menos 8 caracteres: "),
     )
+
 
     confirmacao = getpass("Confirme a senha: ")
 
@@ -42,7 +45,8 @@ def criar_agente():
             nome=dados.nome,
             email=str(dados.email),
             cpf=dados.cpf,
-            matricula=dados.matricula,
+            matricula_academica=None,
+            matricula_funcional=dados.matricula_funcional,
             senha_hash=bcrypt.hashpw(
                 dados.senha.encode("utf-8"),
                 bcrypt.gensalt(rounds=12),

@@ -12,7 +12,7 @@ import {
 import { File } from 'expo-file-system';
 import { fetch as expoFetch } from 'expo/fetch';
 
-const API_URL = 'http://127.0.0.1:8000';
+import { API_URL, TIMEOUT_API } from './config';
 const LIMITE_PDF = 5 * 1024 * 1024;
 
 type Props = {
@@ -39,7 +39,7 @@ async function requisitar(
   opcoes: OpcoesRequisicao
 ) {
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 30000);
+  const timeout = setTimeout(() => controller.abort(), TIMEOUT_API)
 
   try {
     return await expoFetch(`${API_URL}${caminho}`, {

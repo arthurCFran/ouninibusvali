@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 
-const API_URL = 'http://127.0.0.1:8000';
+import { API_URL, TIMEOUT_API } from './config';
 
 type Usuario = {
   id: number;
@@ -81,7 +81,7 @@ export default function App() {
     setCarregando(true);
 
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 10000);
+    const timeout = setTimeout(() => controller.abort(), TIMEOUT_API)
 
     try {
       const resposta = await fetch(`${API_URL}/auth/login`, {
@@ -139,7 +139,7 @@ export default function App() {
 
     const tokenAtual = sessao.access_token;
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 10000);
+    const timeout = setTimeout(() => controller.abort(), TIMEOUT_API)
 
     setAtualizando(true);
 
